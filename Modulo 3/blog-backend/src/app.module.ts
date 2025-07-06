@@ -8,11 +8,15 @@ import { UsersModule } from './users/users.module';
 import { CategoriesModule } from './categories/categories.module';
 import { PostsModule } from './posts/posts.module';
 import { MailModule } from './mail/mail.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { CursosModule } from './cursos/cursos.module';
+
 
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRoot(process.env.MONGO_URI || ''),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -33,6 +37,7 @@ import { MailModule } from './mail/mail.module';
     CategoriesModule,
     PostsModule,
     MailModule,
+    CursosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
